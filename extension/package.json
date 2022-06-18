@@ -1,0 +1,154 @@
+{
+	"name": "stepsize",
+	"displayName": "stepsize",
+	"description": "",
+	"publisher": "LaoJI",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.60.0"
+	},
+	"galleryBanner": {
+		"color": "red",
+		"theme": "light"
+	},
+	"icon": "resources/extension-icon.png",
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"tech",
+		"technical",
+		"debt",
+		"refactoring",
+		"TODO",
+		"bookmark",
+		"annotation",
+		"review",
+		"collaboration"
+	],
+	"preview": false,
+	"repository": {
+		"private": true
+	},
+	"bugs": {
+		"url": "https://terms.stepsize.com/support",
+		"email": "support@stepsize.com"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"main": "./build/vsc-extension/src/extension.js",
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "my-tech-debt",
+					"title": "Dev_Issue",
+					"icon": "resources/logo.svg"
+				}
+			]
+		},
+		"views": {
+			"my-tech-debt": [
+				{
+					"id": "devissue.panel",
+					"type": "webview",
+					"name": ""
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "stepsize.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"extensionDependencies": [
+		"vscode.git"
+	],
+	"dependencies": {
+		"@babel/parser": "^7.6.0",
+		"@babel/types": "^7.6.1",
+		"@emotion/react": "^11.1.5",
+		"@emotion/styled": "^11.3.0",
+		"@fortawesome/fontawesome-free": "^5.15.1",
+		"@material-ui/core": "^4.10.0",
+		"@material-ui/icons": "^4.9.1",
+		"@material-ui/lab": "^4.0.0-alpha.54",
+		"@types/marked": "^1.2.0",
+		"@types/match-sorter": "^4.0.0",
+		"@types/uuid": "^8.3.0",
+		"@types/vscode": "^1.55.0",
+		"analytics-node": "^3.4.0-beta.1",
+		"build-url": "^1.3.3",
+		"crypto": "^1.0.1",
+		"date-fns": "^2.14.0",
+		"dotenv": "^8.2.0",
+		"git-url-parse": "^11.1.2",
+		"got": "^9.6.0",
+		"jimp": "^0.14.0",
+		"language-map": "^1.4.0",
+		"leasot": "^12.0.0",
+		"lodash-decorators": "^6.0.1",
+		"marked": "^1.2.5",
+		"marked-plaintext": "^0.0.2",
+		"match-sorter": "^4.2.0",
+		"mobx": "^5.15.4",
+		"react-select": "^4.3.0",
+		"react-simplemde-editor": "^4.1.3",
+		"react-syntax-highlighter": "^12.2.1",
+		"remove-markdown": "^0.3.0",
+		"resize-observer-polyfill": "^1.5.1",
+		"rollbar": "^2.12.3",
+		"semver-diff": "^3.1.1",
+		"sharp": "^0.29.3",
+		"simple-git": "^2.39.0",
+		"styled-components": "^5.2.3",
+		"typesafe-actions": "^4.4.2",
+		"uuid": "^8.3.2",
+		"xss": "^1.0.8"
+	},
+	"scripts": {
+		"dev": "yarn clean && yarn watch",
+		"watch:extension": "yarn copy-env-files && tsc -watch",
+		"watch:webview": "export WEBVIEW_BUILD_PATH=`pwd`/build-webview && cd ../webview && yarn watch",
+		"watch": "concurrently  'yarn watch:extension' 'yarn watch:webview'",
+		"copy-env-files": "mkdir -p build/vsc-extension/src && cp envs/${EXT_ENV:-local}.js build/vsc-extension/src/envs.js ",
+		"build:extension": "yarn copy-env-files && webpack",
+		"build:webview": "export WEBVIEW_BUILD_PATH=`pwd`/build-webview && cd ../webview && yarn build",
+
+		"vscode:prepublish": "npm run compile",
+		"clean": "rm -rf ./build ./build-webview",
+		"compile": "tsc -p ./",
+		"watch_bak": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.5.5",
+		"@stepsize/shared-types": "0.7.3",
+		"@types/analytics-node": "^3.1.1",
+		"@types/got": "^9.6.7",
+		"@types/jest": "^24.0.23",
+		"@types/lodash": "^4.14.149",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.7.1",
+		"babel-loader": "^8.0.6",
+		"chokidar": "^3.3.1",
+		"concurrently": "^5.1.0",
+		"jest": "^24.9.0",
+		"license-webpack-plugin": "^4.0.2",
+		"mocha": "^6.2.2",
+		"terser-webpack-plugin": "^4.0.0",
+		"ts-jest": "^24.0.2",
+		"ts-loader": "^8.0.2",
+		"typescript": "^4.1.2",
+		"vsce": "^1.66.0",
+		"vscode": "^1.1.37",
+		"vscode-test": "^1.2.3",
+		"webpack": "4.41.2",
+		"webpack-cli": "^3.3.12"
+	}
+}

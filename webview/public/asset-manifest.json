@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b54dffd3.css",
+    "main.js": "./static/js/main.37334fe3.js",
+    "main.js.map": "./static/js/main.37334fe3.js.map",
+    "index.html": "./index.html",
+    "main.licenses.txt": "./main.licenses.txt",
+    "mini-css-extract-plugin.licenses.txt": "./mini-css-extract-plugin.licenses.txt",
+    "static/css/main.b54dffd3.css.map": "./static/css/main.b54dffd3.css.map",
+    "static/js/main.37334fe3.js.LICENSE.txt": "./static/js/main.37334fe3.js.LICENSE.txt",
+    "static/media/1-bookmark-code-fallback.af72f2a4.png": "./static/media/1-bookmark-code-fallback.af72f2a4.png",
+    "static/media/2-create-issue-fallback.84daa8df.png": "./static/media/2-create-issue-fallback.84daa8df.png",
+    "static/media/3-issue-resolution-fallback.a6e156d1.png": "./static/media/3-issue-resolution-fallback.a6e156d1.png",
+    "static/media/issue-annotation.1fec1ac3.png": "./static/media/issue-annotation.1fec1ac3.png",
+    "static/media/logo.7597a143.png": "./static/media/logo.7597a143.png"
+  },
+  "entrypoints": [
+    "static/css/main.b54dffd3.css",
+    "static/js/main.37334fe3.js"
+  ]
+}
