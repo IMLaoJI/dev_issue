@@ -6,45 +6,44 @@ import { log } from './logger'
 import { rollbar } from './rollbar'
 import ENV from './environment'
 import { map } from 'lodash/fp'
+import { WebviewProvider } from './helpers/WebviewProvider'
 export async function activate(context: vscode.ExtensionContext) {
 
 
 	const myScheme = 'devissue';
-	const myProvider = new class implements vscode.TextDocumentContentProvider {
-		// emitter and its event
-		onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
-		onDidChange = this.onDidChangeEmitter.event;
-
-		provideTextDocumentContent(uri: vscode.Uri): string {
-			// simply invoke cowsay, use uri-path as text
-			return "hello word1";
-		}
-	};
-	context.subscriptions.push(vscode.workspace.registerTextDocumentContentProvider(myScheme, myProvider));
-	context.subscriptions.push(vscode.commands.registerCommand('devissue.helloWorld', async () => {
-		const what = await vscode.window.showInputBox({ placeHolder: 'helloWorld...' });
-		if (what) {
-			const uri = vscode.Uri.parse('devissue:' + what);
-			const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
-			await vscode.window.showTextDocument(doc, { preview: false });
-		}
-	}));
-	// try {
-	//   await activateSafe(context)
-	// } catch (error) {
-	//   log.error(`extension.activate: ${getErrorMessage(error)}`, error as Error)
-	//   rollbar.error('Extension.activate', error)
-	// }
+	try {
+	  await activateSafe(context)
+	} catch (error) {
+	  log.error(`extension.activate: ${getErrorMessage(error)}`, error as Error)
+	  rollbar.error('Extension.activate', error  as Error)
+	}
 }
 
 async function activateSafe(context: vscode.ExtensionContext) {
-	// const apiRootUrl = ENV.extEnv === 'local' ? ENV.ngrokApiUrl : ENV.apiRootUrl
-	// const webAppRootUrl =
-	//   ENV.extEnv === 'local' && process.platform === 'darwin'
-	//     ? 'http://localhost:3000'
-	//     : apiRootUrl!.replace('/api', '')
 
-	// log.debug('activateSafe', { apiRootUrl, webAppRootUrl })
+  process.on('uncaughtException', (err: Error) =>
+  rollbar.error('Extension.uncaughtException', err, undefined, { ignoreNonStepsizeError: true })
+)
+
+	const apiRootUrl = ENV.extEnv === 'local' ? ENV.ngrokApiUrl : ENV.apiRootUrl
+	const webAppRootUrl =
+	  ENV.extEnv === 'local' && process.platform === 'darwin'
+	    ? 'http://localhost:3000'
+	    : apiRootUrl!.replace('/api', '')
+
+	log.debug('activateSafe', { apiRootUrl, webAppRootUrl })
+
+  const webviewProvider = new WebviewProvider(
+    context,
+    context.extensionUri,
+    apiRootUrl!,
+    webAppRootUrl!
+  )
+
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(WebviewProvider.viewType, webviewProvider)
+  )
+
 }
 
 

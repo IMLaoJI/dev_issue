@@ -1,1 +1,1 @@
-{"version":3,"file":"rollbar.js","sourceRoot":"","sources":["../../../src/rollbar.ts"],"names":[],"mappings":";;;AAAA,MAAM,OAAO,GAAO,EAAE,CAAA;AACb,0BAAO"}
+{"version":3,"file":"rollbar.js","sourceRoot":"","sources":["../../../src/rollbar.ts"],"names":[],"mappings":";;;AAAA,MAAa,eAAe;IAExB;IACA,CAAC;IAEM,KAAK,CACV,MAAc,EACd,KAAwF,EACxF,YAAoB,EAAE,EACtB,UAAgD,EAAE,sBAAsB,EAAE,KAAK,EAAE;QAEjF,OAAO,CAAC,KAAK,CAAC,eAAe,EAAE,MAAM,EAAE,KAAK,EAAE,SAAS,CAAC,CAAA;IAC1D,CAAC;CACJ;AAbD,0CAaC;AACD,MAAM,OAAO,GAAG,IAAI,eAAe,EAAE,CAAA;AAC5B,0BAAO"}

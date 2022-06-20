@@ -101,7 +101,7 @@ export class Logger {
         this.logger.log(dataToLog)
         // console.log(dataToLog)
       } catch (err) {
-        rollbar.error('Failed to send logs to Logz (try/catch)', err)
+        rollbar.error('Failed to send logs to Logz (try/catch)', err as Error)
       }
     }
   }
