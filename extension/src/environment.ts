@@ -15,7 +15,7 @@ const environment: Environment =
   process.env.NODE_ENV === 'production'
     ? require('../build/vsc-extension/src/envs.js').default
     : require('./envs.js').default
-console.log(environment,process.env.NODE_ENV);
+console.log(environment, process.env.NODE_ENV);
 
 // TODO: make this work in watch and build OR make dotenv/webpack work for us
 if (process.env.NODE_ENV !== 'production' && environment.extEnv === 'local') {
@@ -28,5 +28,6 @@ if (process.env.NODE_ENV !== 'production' && environment.extEnv === 'local') {
   environment.ngrokApiUrl = config.NGROK_API_URL
   environment.jiraOauthClientId = config.JIRA_OAUTH_CLIENT_ID
 }
+// TODO: m31232132
 
 export default environment

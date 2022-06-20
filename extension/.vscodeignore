@@ -11,3 +11,5 @@ vsc-extension-quickstart.md
 
 envs/**
 node_modules/**
+
+web-extension.webpack.config.js

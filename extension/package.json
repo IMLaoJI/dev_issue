@@ -59,7 +59,7 @@
 		},
 		"commands": [
 			{
-				"command": "stepsize.helloWorld",
+				"command": "devissue.helloWorld",
 				"title": "Hello World"
 			}
 		]
@@ -90,11 +90,13 @@
 		"jimp": "^0.14.0",
 		"language-map": "^1.4.0",
 		"leasot": "^12.0.0",
+		"lodash": "^4.17.21",
 		"lodash-decorators": "^6.0.1",
 		"marked": "^1.2.5",
 		"marked-plaintext": "^0.0.2",
 		"match-sorter": "^4.2.0",
 		"mobx": "^5.15.4",
+		"path-browserify": "^1.0.1",
 		"react-select": "^4.3.0",
 		"react-simplemde-editor": "^4.1.3",
 		"react-syntax-highlighter": "^12.2.1",
@@ -113,16 +115,17 @@
 		"dev": "yarn clean && yarn watch",
 		"watch:extension": "yarn copy-env-files && tsc -watch",
 		"watch:webview": "echo 1",
-		"watch": "concurrently  'yarn watch:extension' 'yarn watch:webview'",
-		"copy-env-files": "mkdir -p \"build/vsc-extension/src\" && cp envs/${EXT_ENV:-local}.js build/vsc-extension/src/envs.js",
+		"watch": "concurrently  -n extension,webview 'yarn watch:extension' 'yarn watch:webview'",
+		"copy-env-files": "mkdir -p build/vsc-extension/src && cp envs/${EXT_ENV:-local}.js build/vsc-extension/src/envs.js",
 		"build-local": "EXT_ENV=local yarn build",
 		"build": "yarn build:extension",
-		"build:extension": "yarn copy-env-files && yarn compile",
+		"build:extension": "yarn copy-env-files && yarn build_webpack",
+		"build_webpack": "webpack --mode development --config web-extension.webpack.config.js",
 		"build:webview": "export WEBVIEW_BUILD_PATH=`pwd`/build-webview && cd ../webview && yarn build",
-		"vscode:prepublish": "export EXT_ENV=production && yarn clean && yarn build",
+		"vscode:prepublish": "export EXT_ENV=production  yarn clean && yarn build",
 		"clean": "rm -rf ./build ./build-webview",
 		"compile": "tsc -p ./",
-		"watch_bak": "tsc -watch",
+		"watch1": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js",
@@ -150,7 +153,9 @@
 		"vsce": "^1.66.0",
 		"vscode": "^1.1.37",
 		"vscode-test": "^1.2.3",
-		"webpack": "4.41.2",
-		"webpack-cli": "^3.3.12"
+		"webpack": "5.73.0",
+		"webpack-bundle-analyzer": "4.5.0",
+		"webpack-cli": "4.9.2",
+		"webpack-node-externals": "3.0.0"
 	}
 }
