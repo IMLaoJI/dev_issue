@@ -115,6 +115,6 @@ export class Logger {
       err ? rollbar.error('Failed to send logs to Logz (callback)', err) : undefined,
   })
 }
-
+// TODO: dsdas
 const logger = new Logger()
 export const log = logger.log()

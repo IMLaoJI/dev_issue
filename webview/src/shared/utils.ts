@@ -101,3 +101,11 @@ export function getIntegrationIconUrl(
       return ''
   }
 }
+
+
+export type NonEmptyArray<A> = Array<A> & {
+  0: A
+}
+
+let a:NonEmptyArray<String> = ['11']
+console.log(a);
