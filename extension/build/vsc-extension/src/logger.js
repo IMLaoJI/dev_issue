@@ -77,6 +77,7 @@ class Logger {
     }
 }
 exports.Logger = Logger;
+// TODO: dsdas
 const logger = new Logger();
 exports.log = logger.log();
 //# sourceMappingURL=logger.js.map
