@@ -29,7 +29,7 @@ class WebviewProvider {
             const mainScriptPath = path.join(devPath, mainScript);
             const chokidar = require('chokidar');
             chokidar.watch(mainScriptPath).on('change', () => {
-                webviewView.webview.html = this.getHtmlForWebview('webview', this._apiRootUrl, true);
+                webviewView.webview.html = this.getHtmlForWebview('webview', this._apiRootUrl, false);
             });
         }
     }
@@ -112,7 +112,7 @@ class WebviewProvider {
     }
 }
 exports.WebviewProvider = WebviewProvider;
-WebviewProvider.viewType = 'stepsize.panel';
+WebviewProvider.viewType = 'devissue.panel';
 function getNonce() {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

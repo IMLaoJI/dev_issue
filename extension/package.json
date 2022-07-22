@@ -58,10 +58,6 @@
 			]
 		},
 		"commands": [
-			{
-				"command": "stepsize.helloWorld",
-				"title": "Hello World"
-			}
 		]
 	},
 	"extensionDependencies": [
@@ -112,7 +108,7 @@
 	"scripts": {
 		"dev": "yarn clean && yarn watch",
 		"watch:extension": "yarn copy-env-files && tsc -watch",
-		"watch:webview": "echo 1",
+		"watch:webview": "export WEBVIEW_BUILD_PATH=`pwd`/build-webview && cd ../webview && yarn watch",
 		"watch": "concurrently  -n extension,webview 'yarn watch:extension' 'yarn watch:webview'",
 		"copy-env-files": "mkdir -p \"build/vsc-extension/src\" && cp envs/${EXT_ENV:-local}.js build/vsc-extension/src/envs.js",
 		"build-local": "EXT_ENV=local yarn build",

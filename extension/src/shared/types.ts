@@ -2,6 +2,7 @@ import * as leasot from 'leasot'
 import { Merge } from 'type-fest'
 // import { IssuesGetResponseData } from '@octokit/types'
 
+
 import {
   PartialLinearIssue,
   ExternalIssueField,
@@ -746,7 +747,7 @@ export interface JiraSearchResults {
   issues: JiraApiJiraIssue[] | undefined
 }
 
-export interface GitHubApiGitHubIssue {}
+export interface GitHubApiGitHubIssue { }
 
 export type GitHubSearchResults = GitHubApiGitHubIssue[]
 

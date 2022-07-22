@@ -15,7 +15,6 @@ const environment: Environment =
   process.env.NODE_ENV === 'production'
     ? require('../build/vsc-extension/src/envs.js').default
     : require('./envs.js').default
-console.log(environment, process.env.NODE_ENV);
 
 // TODO: make this work in watch and build OR make dotenv/webpack work for us
 if (process.env.NODE_ENV !== 'production' && environment.extEnv === 'local') {

@@ -7,17 +7,21 @@ import { rollbar } from './rollbar'
 import { LogLevel } from './shared/types'
 import { type } from 'os'
 
-declare interface IMetadata  {
+declare interface IMetadata {
 }
-declare const metadataProvider :any
-declare const logz :any
+const metadataProvider = {
+  getMetadata: () => {
+    return {}
+  }
+}
+declare const logz: any
 
-namespace logz{
-   export interface ILoggerOptions  {
+namespace logz {
+  export interface ILoggerOptions {
 
-   }
+  }
   export interface ILogzioLogger {
-    log(data:any): void
+    log(data: any): void
   }
 }
 
@@ -46,14 +50,20 @@ export class Logger {
   private logger: logz.ILogzioLogger
 
   constructor() {
-    this.logger = logz.createLogger(this.loggerConfig())
+    // this.logger = logz.createLogger(this.loggerConfig())
+    this.logger = {
+      log: (data: any) => {
+        console.log("develop log:=====>", data);
+
+      }
+    }
   }
 
   public log = () => ({
     info: this.loggerBase('info'),
     debug: this.loggerBase('debug'),
     warning: this.loggerBase('warning'),
-    error: this.loggerBase<{ error?: Error; [key: string]: any } | Error >('error'),
+    error: this.loggerBase<{ error?: Error;[key: string]: any } | Error>('error'),
   })
 
   private loggerBase = <T extends { [key: string]: any }>(level: LogLevel) => (
@@ -111,7 +121,7 @@ export class Logger {
     protocol: 'https',
     host: 'listener-uk.logz.io',
     port: '8071',
-    callback: (err:Error) =>
+    callback: (err: Error) =>
       err ? rollbar.error('Failed to send logs to Logz (callback)', err) : undefined,
   })
 }

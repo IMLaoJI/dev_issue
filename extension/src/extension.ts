@@ -9,40 +9,39 @@ import { map } from 'lodash/fp'
 import { WebviewProvider } from './helpers/WebviewProvider'
 export async function activate(context: vscode.ExtensionContext) {
 
-
 	const myScheme = 'devissue';
 	try {
-	  await activateSafe(context)
+		await activateSafe(context)
 	} catch (error) {
-	  log.error(`extension.activate: ${getErrorMessage(error)}`, error as Error)
-	  rollbar.error('Extension.activate', error  as Error)
+		log.error(`extension.activate: ${getErrorMessage(error)}`, error as Error)
+		rollbar.error('Extension.activate', error as Error)
 	}
 }
 
 async function activateSafe(context: vscode.ExtensionContext) {
 
-  process.on('uncaughtException', (err: Error) =>
-  rollbar.error('Extension.uncaughtException', err, undefined, { ignoreNonStepsizeError: true })
-)
+	process.on('uncaughtException', (err: Error) =>
+		rollbar.error('Extension.uncaughtException', err, undefined, { ignoreNonStepsizeError: true })
+	)
 
 	const apiRootUrl = ENV.extEnv === 'local' ? ENV.ngrokApiUrl : ENV.apiRootUrl
 	const webAppRootUrl =
-	  ENV.extEnv === 'local' && process.platform === 'darwin'
-	    ? 'http://localhost:3000'
-	    : apiRootUrl!.replace('/api', '')
+		ENV.extEnv === 'local' && process.platform === 'darwin'
+			? 'http://localhost:3000'
+			: apiRootUrl!.replace('/api', '')
 
 	log.debug('activateSafe', { apiRootUrl, webAppRootUrl })
 
-  const webviewProvider = new WebviewProvider(
-    context,
-    context.extensionUri,
-    apiRootUrl!,
-    webAppRootUrl!
-  )
+	const webviewProvider = new WebviewProvider(
+		context,
+		context.extensionUri,
+		apiRootUrl!,
+		webAppRootUrl!
+	)
 
-  context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(WebviewProvider.viewType, webviewProvider)
-  )
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(WebviewProvider.viewType, webviewProvider)
+	)
 
 }
 

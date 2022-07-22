@@ -6,6 +6,11 @@ const fp_1 = require("lodash/fp");
 const environment_1 = require("./environment");
 // import { IMetadata, metadataProvider } from './helpers'
 const rollbar_1 = require("./rollbar");
+const metadataProvider = {
+    getMetadata: () => {
+        return {};
+    }
+};
 class Logger {
     constructor() {
         this.log = () => ({
@@ -49,7 +54,12 @@ class Logger {
             port: '8071',
             callback: (err) => err ? rollbar_1.rollbar.error('Failed to send logs to Logz (callback)', err) : undefined,
         });
-        this.logger = logz.createLogger(this.loggerConfig());
+        // this.logger = logz.createLogger(this.loggerConfig())
+        this.logger = {
+            log: (data) => {
+                console.log("develop log:=====>", data);
+            }
+        };
     }
     // Logz doesn't handle full error objects so we have to augment the error first
     extractErrorProperties(metadataOrError) {
